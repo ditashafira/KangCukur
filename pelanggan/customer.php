@@ -75,7 +75,7 @@ body{
     	<div><br><br><br>
     	</div>
       <div>
-      <amp-img src="../icon/logoutama.jpg" layout="responsive" width="8" height="8" alt="a sample image">
+      <amp-img src="../icon/logoutama.jpg" layout="responsive" width="10" height="10" alt="a sample image">
             </amp-img>
           </div>
     <div class="container">

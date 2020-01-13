@@ -97,15 +97,17 @@ body{
         include "../koneksi.php";
 $id_tcukur=$_GET['id'];
 $sql = "SELECT * FROM barbershop where id_tcukur='".$id_tcukur."'";
-$query = mysqli_query($con, $sql);
-while($data = mysqli_fetch_array($query)){
-    ?>
-<iframe width="285" height="170" id="gmap_canvas" src="<?php echo $data['koor']; ?>&t=k&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
-<?php }
+  $query = mysqli_query($con, $sql);
+   while($row = mysqli_fetch_array($query))
+  {
+  $id_tcukur = $row["id_tcukur"];
+  $koor = $row["koor"];
+  }
+echo  "<iframe src='{$koor}' frameborder='0' height='70%' scrolling='auto' width='70%''></iframe>";
 ?>
           <?php
         include "../koneksi.php";
-$id_tcukur=$_GET['id'];
+  $id_tcukur=$_GET['id'];
 $sql = "SELECT * FROM booking where id_tcukur='".$id_tcukur."'";
   $query = mysqli_query($con, $sql);
   echo "<br><br>";
@@ -113,8 +115,8 @@ echo "<div class='content3 display-6'>";
 echo "<table class='table' align='center'>";
 echo "<thead>";
 echo "<th >Customer List</th>";
-echo "<th>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</th>";
-echo "<th>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</th>";
+echo "<th>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</th>";
+echo "<th>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</th>";
 echo "<th>Waktu Memesan</th>";
   echo "</thead>";
   echo "</table>";
@@ -122,8 +124,8 @@ echo "<th>Waktu Memesan</th>";
   while($data = mysqli_fetch_array($query)){
     ?>
         <th><?php echo $data['pemesan']; ?></th>
-        <th>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</th>
-        <th>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</th>
+        <th>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</th>
+        <th>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</th>
         <th><?php echo $data['waktu']; ?></th><br>
     <?php
   }
