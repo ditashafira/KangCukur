@@ -1,18 +1,37 @@
+<?php 
+session_start();
+if ($_SESSION == null){
+  header( 'Location: ../index.php' );
+}
+include '../koneksi.php';
+//session_destroy();
+$id_pelanggan = $_SESSION['id'];
+if (isset($_POST['nm_pelanggan'])){
+  //ini variable post
+  $nm_pelanggan = $_POST['nm_pelanggan'];
+  $no_telp = $_POST['no_telp'];
+  $email = $_POST['email'];
+  $password = $_POST['password'];
+  //update query
+  $con->query("Update pelanggan 
+    Set nm_pelanggan = '$nm_pelanggan', no_telp = '$no_telp' , email = '$email' , password = '$password'
+    Where id_pelanggan = $id_pelanggan");
+  }
+?>
 <!DOCTYPE html>
-<html amp>
+<html>
 
 
 <head>  
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-  <link rel="shortcut icon" href="../icon/logo3.jpg" type="image/x-icon">
+  <link rel="shortcut icon" href="icon/logo3.jpg" type="image/x-icon">
   <meta name="description" content="">
 
-  <title>Beranda</title>
+  <title>Ubah Profile</title>
 
   <link rel="stylesheet" href="../css/font-awesome.min.css"> 
- <link rel="stylesheet" href="../css/allhome.css">
- <link rel="stylesheet" href="../css/barberkc.css">
- <link rel="stylesheet" href="../css/khustable.css">
+  <link rel="stylesheet" href="../css/allhome.css">
+  <link rel="stylesheet" href="../css/buatsigninup.css">
 <style amp-boilerplate>
 body{
   -webkit-animation: -amp-start 8s steps(1,end) 0s 1 normal both;
@@ -51,6 +70,7 @@ body{
             </button>
 
             <div class="sidebar mbr-white" data-app-modern-menu="true"><hr>
+              <a class="text-primary display-2" href="customer.php">Halaman Utama</a><hr>
               <a class="text-primary display-2" href="settingup.php">Pengaturan</a><hr>
               <a class="text-primary display-2" href="../logout.php">Keluar</a><hr>
             </div>
@@ -71,45 +91,37 @@ body{
         <span></span>
         <span></span>
     </button>
-</section>  
-    	<div><br><br><br>
-    	</div>
+</section>
+<section>
       <div>
-      <amp-img src="../icon/logoutama.jpg" layout="responsive" width="8" height="8" alt="a sample image">
-            </amp-img>
-          </div>
-    <div class="container">
-      <div class="content3">
-        <?php
-        include "../koneksi.php";
-$sql = "SELECT * FROM barbershop where statusbuka='Buka'";
-  $query = mysqli_query($con, $sql);
-  echo "<br><br>";
-  echo "<h3>List Tukang Cukur</h3>";
-  echo "<table border='1'";
-  echo "<tr>
-      <th>Nama</th>
-      <th>Alamat</th>
-      <th>Telepon</th>
-      <th>Menu</th>
-      </tr>";
-  
-  while($data = mysqli_fetch_array($query)){
-    ?>
-      <tr>
-        <td><?php echo $data['nm_tcukur']; ?></td>
-        <td><?php echo $data['alamat']; ?></td>
-        <td><?php echo $data['telp_tcukur']; ?></td>
-        <td><a target="_blank" href="listbarb.php?id=<?php echo $data['id_tcukur']; ?>"><img src='../icon/google-maps.png' width='25' height='25' border='none' /></a></td>
-      </tr>
-    <?php
-  }
-  echo "</table>";
-  echo "</fieldset>";
-?>
-</div>
+      <div><br><br><br>
+      </div>
+        <div>
+<amp-img src="../icon/ubahprofil.jpg" layout="responsive" width="14" height="2" alt="a sample image">     
+            </amp-img>           
+        </div>
     </div>
 </section>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<section class="header2 cid-rIdnGxH7WRS" id="header2-f">
+ 
+  <?php  
+  $sql_profil = mysqli_query($con,"SELECT * FROM pelanggan WHERE id_pelanggan = $id_pelanggan");
+  while($data = mysqli_fetch_array($sql_profil)){
+  ?>
+<br><br><br><br><br><br><br>
+<form class="box" action="" method="post">
+  <input type="text" name="nm_pelanggan" value="<?php echo $data['nm_pelanggan']; ?>" placeholder="Nama">
+  <input type="text" name="no_telp" value="<?php echo $data['no_telp']; ?>" placeholder="No Telepon">
+  <input type="text" name="email" value="<?php echo $data['email']; ?>" placeholder="Email">
+  <input type="text" name="password" value="<?php echo $data['password']; ?>" placeholder="Kata Kunci">
+<input type="submit" name="submit" value="Simpan">
+
+</form>
+<?php } ?>
+<br><br>
+</section>
+
 <section class="social-follow cid-rIdugNkbS4" id="social-follow-p">
     <div class="wrapper">
 <br>        
@@ -123,6 +135,7 @@ $sql = "SELECT * FROM barbershop where statusbuka='Buka'";
 </div>
     </div>
 </section>
+
 <section class="footer1 cid-rIdooQtecn" id="footer1-j">
     <div class="container">
         <div class="mbr-col-sm-12 align-center mbr-white">
@@ -131,6 +144,5 @@ $sql = "SELECT * FROM barbershop where statusbuka='Buka'";
         </div>
     </div>
 </section>
-  
 </body>
 </html>

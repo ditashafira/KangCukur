@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html amp>
-
+<html lang="en">
 
 <head>  
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
   <link rel="shortcut icon" href="../icon/logo3.jpg" type="image/x-icon">
   <meta name="description" content="">
 
-  <title>Beranda</title>
+  <title>Masuk</title>
 
-  <link rel="stylesheet" href="../css/font-awesome.min.css"> 
- <link rel="stylesheet" href="../css/allhome.css">
- <link rel="stylesheet" href="../css/barberkc.css">
- <link rel="stylesheet" href="../css/khustable.css">
+  <link rel="stylesheet" href="../css/font-awesome.min.css">
+<link rel="stylesheet" href="../css/allhome.css">
+<link rel="stylesheet" href="../css/buatsigninup.css">
+<link rel="stylesheet" href="../css/signintabs.css">
+
 <style amp-boilerplate>
 body{
   -webkit-animation: -amp-start 8s steps(1,end) 0s 1 normal both;
@@ -38,12 +38,11 @@ body{
 
   <script async  src="https://cdn.ampproject.org/v0.js"></script>
   <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
-  <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+  <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script> 
 </head>
 
 
-<body>
-<amp-sidebar id="sidebar" class="cid-rIduZ5xEHs" layout="nodisplay" side="right">
+<body><amp-sidebar id="sidebar" class="cid-rIduZ5xEHs" layout="nodisplay" side="right">
         <div class="builder-sidebar" id="builder-sidebar">
             <button on="tap:sidebar.close" class="close-sidebar">
                 <span></span>
@@ -51,8 +50,9 @@ body{
             </button>
 
             <div class="sidebar mbr-white" data-app-modern-menu="true"><hr>
-              <a class="text-primary display-2" href="settingup.php">Pengaturan</a><hr>
-              <a class="text-primary display-2" href="../logout.php">Keluar</a><hr>
+              <a class="text-primary display-2" href="../index.php">Beranda</a><hr>
+              <a class="text-primary display-2" href="../daftar-pelanggan.php">Daftar Pelanggan</a><hr>
+              <a class="text-primary display-2" href="../daftar-tukang-cukur.php">Daftar Tukang Cukur</a><hr>
             </div>
         </div>
     </amp-sidebar>
@@ -71,45 +71,57 @@ body{
         <span></span>
         <span></span>
     </button>
-</section>  
-    	<div><br><br><br>
-    	</div>
-      <div>
-      <amp-img src="../icon/logoutama.jpg" layout="responsive" width="8" height="8" alt="a sample image">
-            </amp-img>
-          </div>
-    <div class="container">
-      <div class="content3">
-        <?php
-        include "../koneksi.php";
-$sql = "SELECT * FROM barbershop where statusbuka='Buka'";
-  $query = mysqli_query($con, $sql);
-  echo "<br><br>";
-  echo "<h3>List Tukang Cukur</h3>";
-  echo "<table border='1'";
-  echo "<tr>
-      <th>Nama</th>
-      <th>Alamat</th>
-      <th>Telepon</th>
-      <th>Menu</th>
-      </tr>";
-  
-  while($data = mysqli_fetch_array($query)){
-    ?>
-      <tr>
-        <td><?php echo $data['nm_tcukur']; ?></td>
-        <td><?php echo $data['alamat']; ?></td>
-        <td><?php echo $data['telp_tcukur']; ?></td>
-        <td><a target="_blank" href="listbarb.php?id=<?php echo $data['id_tcukur']; ?>"><img src='../icon/google-maps.png' width='25' height='25' border='none' /></a></td>
-      </tr>
-    <?php
-  }
-  echo "</table>";
-  echo "</fieldset>";
-?>
-</div>
-    </div>
 </section>
+
+<section class="engine"><a href="https://mobirise.me/i">free web creation software</a></section><section class="image1 cid-rIdwevOw8K" id="image1-t">
+
+    <div>
+      <div><br><br><br>
+      </div>
+        <div>
+            <amp-img src="../icon/signin2.jpg" layout="responsive" width="14" height="2" alt="a sample image">
+                
+            </amp-img>
+            
+        </div>
+    </div>
+
+</section>
+
+<section class="header1 cid-rIdnGxH7WRS" id="header1-f">
+
+  <?php
+session_start();
+include '../koneksi.php';
+if (isset($_POST['email'])){
+ $email = $_POST['email'];
+ $password = $_POST['password'];
+        $result = mysqli_query($con,"select * from pelanggan where email='$email' and password='$password'");
+ $cek = mysqli_num_rows($result);
+        if($cek==1){
+          while($data = mysqli_fetch_array($result)){
+            $_SESSION['id'] = $data['id_pelanggan'];
+            $_SESSION['email'] = $email;
+            }
+                 // Redirect user to index.php
+     header("Location: customer.php");
+         }if($cek==0){
+ echo "<div class='form'>
+<h3>Email/Kata kunci salah.</h3>
+<br/>Klik disini untuk masuk <a href='signinkc.php'>masuk</a></div>";
+ }
+    }else{
+?>
+<br>
+<form class="box" action="" method="post" name="login">
+  <input type="text" name="email" placeholder="Email" required />
+  <input type="password" name="password" placeholder="Kata Kunci" required />
+<input type="submit" name="submit" value="Masuk">
+Belum Punya Akun? <a href="..\daftar-pelanggan.php">Daftar!</a>
+</form>
+<br><br>
+</section>
+
 <section class="social-follow cid-rIdugNkbS4" id="social-follow-p">
     <div class="wrapper">
 <br>        
@@ -122,7 +134,7 @@ $sql = "SELECT * FROM barbershop where statusbuka='Buka'";
             </a>
 </div>
     </div>
-</section>
+
 <section class="footer1 cid-rIdooQtecn" id="footer1-j">
     <div class="container">
         <div class="mbr-col-sm-12 align-center mbr-white">
@@ -131,6 +143,6 @@ $sql = "SELECT * FROM barbershop where statusbuka='Buka'";
         </div>
     </div>
 </section>
-  
+  <?php } ?>
 </body>
 </html>
