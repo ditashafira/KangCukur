@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html amp>
-
-
+<?php
+session_start();
+if ($_SESSION['id'] == null){
+  header( 'Location: ../index.php' );
+}
+?>
 <head>  
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
   <link rel="shortcut icon" href="../icon/logo3.jpg" type="image/x-icon">
@@ -12,7 +16,7 @@
   <link rel="stylesheet" href="../css/font-awesome.min.css"> 
  <link rel="stylesheet" href="../css/allhome.css">
  <link rel="stylesheet" href="../css/barberkc.css">
- <link rel="stylesheet" href="../css/khustable.css">
+ <link rel="stylesheet" href="../css/khustablekc.css">
 <style amp-boilerplate>
 body{
   -webkit-animation: -amp-start 8s steps(1,end) 0s 1 normal both;
@@ -73,43 +77,42 @@ body{
     </button>
 </section>  
     	<div><br><br><br>
-    	</div>
-      <div>
-      <amp-img src="../icon/logoutama.jpg" layout="responsive" width="8" height="8" alt="a sample image">
-            </amp-img>
-          </div>
+     </div>
     <div class="container">
       <div class="content3">
         <?php
         include "../koneksi.php";
-$sql = "SELECT * FROM barbershop where statusbuka='Buka'";
+$sql = "SELECT * FROM gambar where id_tcukur='".$_SESSION['id']."'";
   $query = mysqli_query($con, $sql);
+  echo "<form class='box' action='delpes.php' method='post'>";
   echo "<br><br>";
-  echo "<h3>List Tukang Cukur</h3>";
-  echo "<table border='1'";
+  echo "<h3>Daftar foto yang anda unggah</h3>";
+  echo "<table>";
   echo "<tr>
       <th>Nama</th>
-      <th>Alamat</th>
-      <th>Telepon</th>
-      <th>Menu</th>
+      <th>Ukuran</th>
+      <th>Tipe</th>
+      <th>Hapus</th>
       </tr>";
   
   while($data = mysqli_fetch_array($query)){
     ?>
       <tr>
-        <td><?php echo $data['nm_tcukur']; ?></td>
-        <td><?php echo $data['alamat']; ?></td>
-        <td><?php echo $data['telp_tcukur']; ?></td>
-        <td><a target="_blank" href="listbarb.php?id=<?php echo $data['id_tcukur']; ?>"><img src='../icon/google-maps.png' width='25' height='25' border='none' /></a></td>
+        <td><?php echo $data['id']; ?></td>
+        <td><?php echo $data['ukuran']; ?></td>
+        <td><?php echo $data['tipe']; ?></td>
+        <td><form class="box" action="delpes.php" method="post">
+  <input type="submit" name="delpes" value="Hapus">
+</form></td>
       </tr>
     <?php
   }
   echo "</table>";
-  echo "</fieldset>";
+  echo "</form>";
 ?>
 </div>
     </div>
-</section>
+</body><br><br><br><br>
 <section class="social-follow cid-rIdugNkbS4" id="social-follow-p">
     <div class="wrapper">
 <br>        
@@ -129,8 +132,6 @@ $sql = "SELECT * FROM barbershop where statusbuka='Buka'";
             <p class="mbr-text mbr-fonts-style display-7">
                 © 2019 by KANG CUKUR</p>
         </div>
-    </div>
+</div>
 </section>
-  
-</body>
 </html>

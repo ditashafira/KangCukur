@@ -1,18 +1,16 @@
 <!DOCTYPE html>
-<html amp>
-
+<html>
 
 <head>  
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-  <link rel="shortcut icon" href="../icon/logo3.jpg" type="image/x-icon">
+  <link rel="shortcut icon" href="icon/logo3.jpg" type="image/x-icon">
   <meta name="description" content="">
 
-  <title>Beranda</title>
+  <title>Ubah Profile</title>
 
   <link rel="stylesheet" href="../css/font-awesome.min.css"> 
- <link rel="stylesheet" href="../css/allhome.css">
- <link rel="stylesheet" href="../css/barberkc.css">
- <link rel="stylesheet" href="../css/khustable.css">
+  <link rel="stylesheet" href="../css/allhome.css">
+  <link rel="stylesheet" href="../css/faq.css">
 <style amp-boilerplate>
 body{
   -webkit-animation: -amp-start 8s steps(1,end) 0s 1 normal both;
@@ -51,6 +49,7 @@ body{
             </button>
 
             <div class="sidebar mbr-white" data-app-modern-menu="true"><hr>
+              <a class="text-primary display-2" href="customer.php">Halaman Utama</a><hr>
               <a class="text-primary display-2" href="settingup.php">Pengaturan</a><hr>
               <a class="text-primary display-2" href="../logout.php">Keluar</a><hr>
             </div>
@@ -71,51 +70,74 @@ body{
         <span></span>
         <span></span>
     </button>
-</section>  
-    	<div><br><br><br>
-    	</div>
+</section>
+<section>
       <div>
-      <amp-img src="../icon/logoutama.jpg" layout="responsive" width="8" height="8" alt="a sample image">
-            </amp-img>
-          </div>
-    <div class="container">
-      <div class="content3">
-        <?php
-        include "../koneksi.php";
-$sql = "SELECT * FROM barbershop where statusbuka='Buka'";
-  $query = mysqli_query($con, $sql);
-  echo "<br><br>";
-  echo "<h3>List Tukang Cukur</h3>";
-  echo "<table border='1'";
-  echo "<tr>
-      <th>Nama</th>
-      <th>Alamat</th>
-      <th>Telepon</th>
-      <th>Menu</th>
-      </tr>";
-  
-  while($data = mysqli_fetch_array($query)){
-    ?>
-      <tr>
-        <td><?php echo $data['nm_tcukur']; ?></td>
-        <td><?php echo $data['alamat']; ?></td>
-        <td><?php echo $data['telp_tcukur']; ?></td>
-        <td><a target="_blank" href="listbarb.php?id=<?php echo $data['id_tcukur']; ?>"><img src='../icon/google-maps.png' width='25' height='25' border='none' /></a></td>
-      </tr>
-    <?php
-  }
-  echo "</table>";
-  echo "</fieldset>";
-?>
-</div>
+      <div><br><br><br>
+      </div>
+        <div>
+<amp-img src="../icon/pusban.png" layout="responsive" width="14" height="2" alt="a sample image">     
+            </amp-img>           
+        </div>
     </div>
 </section>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<section class="header2 cid-rIdnGxH7WRS" id="header2-f">
+<div class="faq">FAQ</div>
+<button class="acordion">1. Bagaimana cara mengupdate maps secara manual ?</button>
+<div class="panel">
+  <p>1. Buka google maps browser <a href="https://www.google.com/maps/">klik disini</a>.<br><br>
+     2. Ambil lokasi anda secara langsung.<br>
+     <img src="../iconkc/2kc.jpg" height="360" widt="240"></img>
+     <br><br>
+     3. Copy link pada bar pencarian.<br>
+     <img src="../iconkc/3kc.jpg" height="360" widt="240"></img>
+     <br><br>
+     4. Kembali ke beranda Kang-Cukur dan taruh link yang sudah di copy pada bar link koordinasi lalu tekan perbarui.<br>
+     <img src="../iconkc/4kc.jpg" height="360" widt="240"></img></img><img src="../iconkc/5kc.jpg" height="360" widt="240"></img></p>
+</div>
+<button class="acordion">2. Bagaimana cara mengupload foto Tukang Cukur ?</button>
+<div class="panel">
+  <p>1. Pilih foto tempat cukur anda<br>
+ <img src="../iconkc/6kc.jpg" height="360" widt="240"></img><br><br>
+     2. Pilih Foto di galery anda.<br>
+     <img src="../iconkc/7kc.jpg" height="360" widt="240"></img>
+     <br><br>
+     3. Tekan tombol Unggah.<br>
+     <img src="../iconkc/8kc.jpg" height="360" widt="240"></img>
+     <br><br>
+     4. Foto berhasil di hapus.<br>
+     <img src="../iconkc/9kc.jpg" height="360" widt="240"></img></p>
+</div>
+<script>
+var acc = document.getElementsByClassName("acordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+  });
+}
+</script>
+
+
+
+<?php  ?>
+<br><br>
+</section>
+
 <section class="social-follow cid-rIdugNkbS4" id="social-follow-p">
     <div class="wrapper">
 <br>        
         <div class="icons-list">   
-        <a href="http://m.facebook.com/and4ru" target="_blank">
-                <img src="../icon/iconfb.png" width="25" height="25"></img>
+        <a href="http://m.facebook.com/and4ru" target="_blank"=">
+                <img src="../icon/iconfb.png" width="25" height25"></img>
             </a>
 <a href="http://www.instagram.com/ditashf/?hl=id" target="_blank">
                 <img src="../icon/iconig.png" width="25" height="25"></img>
@@ -123,6 +145,7 @@ $sql = "SELECT * FROM barbershop where statusbuka='Buka'";
 </div>
     </div>
 </section>
+
 <section class="footer1 cid-rIdooQtecn" id="footer1-j">
     <div class="container">
         <div class="mbr-col-sm-12 align-center mbr-white">
@@ -131,6 +154,5 @@ $sql = "SELECT * FROM barbershop where statusbuka='Buka'";
         </div>
     </div>
 </section>
-  
 </body>
 </html>

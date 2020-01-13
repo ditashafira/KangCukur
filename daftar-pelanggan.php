@@ -4,15 +4,14 @@
 
 <head>  
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-  <link rel="shortcut icon" href="../icon/logo3.jpg" type="image/x-icon">
+  <link rel="shortcut icon" href="icon/logo3.jpg" type="image/x-icon">
   <meta name="description" content="">
 
-  <title>Beranda</title>
+  <title>Daftar</title>
 
-  <link rel="stylesheet" href="../css/font-awesome.min.css"> 
- <link rel="stylesheet" href="../css/allhome.css">
- <link rel="stylesheet" href="../css/barberkc.css">
- <link rel="stylesheet" href="../css/khustable.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css"> 
+ <link rel="stylesheet" href="css/allhome.css">
+ <link rel="stylesheet" href="css/buatsigninup.css">
 <style amp-boilerplate>
 body{
   -webkit-animation: -amp-start 8s steps(1,end) 0s 1 normal both;
@@ -51,8 +50,10 @@ body{
             </button>
 
             <div class="sidebar mbr-white" data-app-modern-menu="true"><hr>
-              <a class="text-primary display-2" href="settingup.php">Pengaturan</a><hr>
-              <a class="text-primary display-2" href="../logout.php">Keluar</a><hr>
+              <a class="text-primary display-2" href="pelanggan/signinkc.php">Masuk Pelanggan</a><hr>
+              <a class="text-primary display-2" href="tukang_cukur/signinkcbar.php">Masuk Tukang Cukur</a><hr>
+              <a class="text-primary display-2" href="daftar-pelanggan.php">Daftar Pelanggan</a><hr>
+              <a class="text-primary display-2" href="daftar-tukang-cukur.php">Daftar Tukang Cukur</a><hr>
             </div>
         </div>
     </amp-sidebar>
@@ -71,58 +72,65 @@ body{
         <span></span>
         <span></span>
     </button>
-</section>  
-    	<div><br><br><br>
-    	</div>
-      <div>
-      <amp-img src="../icon/logoutama.jpg" layout="responsive" width="8" height="8" alt="a sample image">
+</section>    
+
+    <div>
+      <div><br><br><br>
+      </div>
+        <div>
+            <amp-img src="icon/signup.jpg" layout="responsive" width="14" height="16" alt="a sample image">
+                
             </amp-img>
-          </div>
-    <div class="container">
-      <div class="content3">
-        <?php
-        include "../koneksi.php";
-$sql = "SELECT * FROM barbershop where statusbuka='Buka'";
-  $query = mysqli_query($con, $sql);
-  echo "<br><br>";
-  echo "<h3>List Tukang Cukur</h3>";
-  echo "<table border='1'";
-  echo "<tr>
-      <th>Nama</th>
-      <th>Alamat</th>
-      <th>Telepon</th>
-      <th>Menu</th>
-      </tr>";
-  
-  while($data = mysqli_fetch_array($query)){
-    ?>
-      <tr>
-        <td><?php echo $data['nm_tcukur']; ?></td>
-        <td><?php echo $data['alamat']; ?></td>
-        <td><?php echo $data['telp_tcukur']; ?></td>
-        <td><a target="_blank" href="listbarb.php?id=<?php echo $data['id_tcukur']; ?>"><img src='../icon/google-maps.png' width='25' height='25' border='none' /></a></td>
-      </tr>
-    <?php
-  }
-  echo "</table>";
-  echo "</fieldset>";
-?>
-</div>
+            
+        </div>
     </div>
 </section>
+
+<section class="header2 cid-rIdnGxH7WRS" id="header2-f">
+  <?php
+require('koneksi.php');
+// If form submitted, insert values into the database.
+if (isset($_POST['email'])){
+        // removes backslashes
+ $nm_pelanggan = ($_POST['nm_pelanggan']);
+ $no_telp = ($_POST['no_telp']);
+ $email = ($_POST['email']);
+ $password = ($_POST['password']);
+ $cekk = mysqli_num_rows(mysqli_query($con,"SELECT * FROM pelanggan WHERE email='$email' or no_telp='$no_telp'"));
+        if($cekk > 0){
+         echo "<script>window.alert('Gagal Mendaftar, nomor telepon atau email sudah terdaftar.')</script>";
+        }
+        else{ 
+          mysqli_query($con,"INSERT into `pelanggan` (nm_pelanggan, no_telp, email, password) VALUES ('$nm_pelanggan', '$no_telp', '$email', '$password')");
+          echo "<script>window.alert('Berhasil Mendaftar')
+    window.location='pelanggan/signinkc.php'</script>";
+}
+    }else{
+?>
+<br><br><br><br><br><br>
+<form class="box" action="" method="post">
+  <input type="text" name="nm_pelanggan" placeholder="Nama">
+  <input type="text" name="no_telp" placeholder="No Telepon">
+  <input type="text" name="email" placeholder="Email">
+  <input type="password" name="password" placeholder="Kata Kunci">
+<input type="submit" name="submit" value="Daftar">
+</form>  
+</section>
+
 <section class="social-follow cid-rIdugNkbS4" id="social-follow-p">
     <div class="wrapper">
 <br>        
         <div class="icons-list">   
         <a href="http://m.facebook.com/and4ru" target="_blank">
-                <img src="../icon/iconfb.png" width="25" height="25"></img>
+                <img src="icon/iconfb.png" width="25" height="25"></img>
             </a>
 <a href="http://www.instagram.com/ditashf/?hl=id" target="_blank">
-                <img src="../icon/iconig.png" width="25" height="25"></img>
+                <img src="icon/iconig.png" width="25" height="25"></img>
             </a>
 </div>
     </div>
 </section>
+
 <section class="footer1 cid-rIdooQtecn" id="footer1-j">
     <div class="container">
         <div class="mbr-col-sm-12 align-center mbr-white">
@@ -131,6 +139,6 @@ $sql = "SELECT * FROM barbershop where statusbuka='Buka'";
         </div>
     </div>
 </section>
-  
+  <?php } ?> 
 </body>
 </html>
